@@ -1,5 +1,6 @@
 # NailStringArt
 (Grayscale Src Image, Nail Count, Computation Resolution) -> (Image "Drawn" w/ String, Nail Thread Order)
+![Example Product](https://i.imgur.com/7pzatRv.png)
 
 # Configuring Weights
 In the bottom of the Java program, there are numerous unlabelled boxes. These represent the following algorithm weights:
@@ -15,5 +16,3 @@ In the bottom of the Java program, there are numerous unlabelled boxes. These re
 I've seen other nail drawing techniques online for a spectrum of "free"ness. This is my contribution. It is unique from the others for the following significant reasons:
 - It allows a compute resolution surpassing ANYTHING the others have. I've seen the main competitor on GitHub renders in a 500x500 max computation space. My software can handle 1000x1000 are about 1:1 speed and the precompute solution to gauge string "influence" (should it be drawn) only takes up ~1 GB for that.
 - It allows tweaking the "optimal next string" algorithms parameters. Others bake them in for simplicity sake I'd assume to something that "works best" in a shotgun spread average kind of way, but mine allows you to really get nichely calibrated products depending on your input picture.
-
-![Example Product](https://i.imgur.com/7pzatRv.png)
