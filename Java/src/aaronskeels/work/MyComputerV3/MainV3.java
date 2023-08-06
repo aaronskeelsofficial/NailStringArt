@@ -32,7 +32,7 @@ import javax.swing.JScrollPane;
 public class MainV3 {
 	//Config Numbers
 	public static final int NAIL_RADIUS = 5;
-	private static final File rootFolder = new File("C:\\Users\\Aaron\\Desktop\\NailStringArt\\JavaInfluenceMapCacheV3");
+	private static final File rootFolder = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "NailStringArt_InfluenceCache");
 	//Graphics objects
 	public static final JFrame frame = new JFrame("Nail String Art Drawer");;
 	public static final BufferedImage OffscreenImage = new BufferedImage(4000, 4000, BufferedImage.TYPE_INT_RGB);
