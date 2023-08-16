@@ -195,7 +195,7 @@ public class InputPanel extends JPanel{
                     			MainV3.computeNextBestString(fullStrengthInfluenceWeightMult, scoreWeights);
                     			System.out.println((i+1) + "/" + loops);
                         	}
-                        	System.out.println("Total Strings Placed: " + (MainV3.getCurNailOrderIndex()-1));
+                        	System.out.println("Total Strings Placed: " + (MainV3.getCurNailOrderIndex()-1) + ". Distance: " + MainV3.pixelDistanceTraveled);
                             return null;
                         }
                     };

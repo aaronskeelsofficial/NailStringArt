@@ -34,7 +34,7 @@ public class MainV3 {
 	public static final int NAIL_RADIUS = 5;
 	private static final File rootFolder = new File(System.getProperty("user.home") + System.getProperty("file.separator") + "NailStringArt_InfluenceCache");
 	//Graphics objects
-	public static final JFrame frame = new JFrame("Nail String Art Drawer");;
+	public static final JFrame frame = new JFrame("Nail String Art Drawer");
 	public static final BufferedImage OffscreenImage = new BufferedImage(4000, 4000, BufferedImage.TYPE_INT_RGB);
 	public static BufferedImage ComputedImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB), //These must resize for computation purposes
 			TargetImage = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
@@ -48,6 +48,8 @@ public class MainV3 {
 	public static boolean isDoneAddingStrings = false;
 	public static double fullStrengthInfluenceWeight = 0;
 	public static Map<String, Map<Integer, Byte>> influenceMap = new HashMap<>(); // <ID: <pixelIndex: influence>>
+	//Beta vars
+	public static double pixelDistanceTraveled = 0;
 	//Distance to Influence objects
 		//Version 1: 5px wide total, 1px wide 100%, 2px wide 50%. Technically, line is problematically offset by 1 pixel up and to the right from where "string" would be
 //	private static final float[] INFLUENCE_distArr = new float[] {0f,0.7f,2.1f};
@@ -148,6 +150,18 @@ public class MainV3 {
 		
 		//Remove from remaining strings in database
 		remainingStringsForConsideration.remove(ID);
+		
+		//Update distance travelled
+		Point2D.Float parentNailLoc = nailLocations[parentNailIndex];
+		Point2D.Float childNailLoc = nailLocations[childNailIndex];
+		// x,y are mapped 0 -> 1
+		float parentX = parentNailLoc.x, parentY = parentNailLoc.y;
+		float childX = childNailLoc.x, childY = childNailLoc.y;
+		// Convert to 0 -> Circle Diameter
+		parentX *= ComputedImage.getWidth(); parentY *= ComputedImage.getWidth();
+		childX *= ComputedImage.getWidth(); childY *= ComputedImage.getWidth();
+		pixelDistanceTraveled += Math.sqrt(Math.pow(parentX - childX, 2) + Math.pow(parentY - childY, 2));
+//		System.out.println("(" + parentNailLoc.x + "," + parentNailLoc.y + ") -> (" + childNailLoc.x + "," + childNailLoc.y + ")");
 	}
 	
 	public static void computeInfluenceMap(int fullStrengthInfluenceWeight) {
@@ -476,6 +490,8 @@ public class MainV3 {
 		}
 		previewPanel.computedPanel.repaint();
 		mainPanel.resetDrawing();
+		//Update distance travelled
+		pixelDistanceTraveled = 0;
 	}
 	
 	public static void saveInfluenceMap(Map<String, Map<Integer, Byte>> map) {
